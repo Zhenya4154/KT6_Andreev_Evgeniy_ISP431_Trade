@@ -1,0 +1,354 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TradeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="NameCity">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="PickupPoint" Relationship="Self.FK_PickupPoint_NameCity" FromRole="NameCity" ToRole="PickupPoint" />
+  </EntityType>
+  <EntityType Name="NameManufacturer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Manufacturer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_Product_NameManufacturer" FromRole="NameManufacturer" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="NameProduct">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Product" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Product1" Relationship="Self.FK_Product_NameProduct" FromRole="NameProduct" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="NameStreet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="PickupPoint" Relationship="Self.FK_PickupPoint_NameStreet" FromRole="NameStreet" ToRole="PickupPoint" />
+  </EntityType>
+  <EntityType Name="NameSupplier">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Supplier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_Product_NameSupplier" FromRole="NameSupplier" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="NameUnit">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Unit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_Product_NameUnit" FromRole="NameUnit" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderNumber" Type="Int32" Nullable="false" />
+    <Property Name="IdOrderProduct" Type="Int32" Nullable="false" />
+    <Property Name="Count" Type="Int32" Nullable="false" />
+    <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="OrderDeliveryDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="OrderPickupPoint" Type="Int32" Nullable="false" />
+    <Property Name="NameClient" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Code" Type="Int32" Nullable="false" />
+    <Property Name="IdStatus" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="OrderProduct" Relationship="Self.FK_Order_OrderProduct" FromRole="Order" ToRole="OrderProduct" />
+    <NavigationProperty Name="OrderStatus" Relationship="Self.FK_Order_OrderStatus" FromRole="Order" ToRole="OrderStatus" />
+    <NavigationProperty Name="PickupPoint" Relationship="Self.FK_Order_PickupPoint" FromRole="Order" ToRole="PickupPoint" />
+  </EntityType>
+  <EntityType Name="OrderProduct">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="ProductArticleNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_Order_OrderProduct" FromRole="OrderProduct" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="OrderStatus">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_Order_OrderStatus" FromRole="OrderStatus" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="PickupPoint">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="IndexCity" Type="Int32" Nullable="false" />
+    <Property Name="IdCity" Type="Int32" Nullable="false" />
+    <Property Name="IdStreet" Type="Int32" Nullable="false" />
+    <Property Name="Hous" Type="Int32" />
+    <NavigationProperty Name="NameCity" Relationship="Self.FK_PickupPoint_NameCity" FromRole="PickupPoint" ToRole="NameCity" />
+    <NavigationProperty Name="NameStreet" Relationship="Self.FK_PickupPoint_NameStreet" FromRole="PickupPoint" ToRole="NameStreet" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_Order_PickupPoint" FromRole="PickupPoint" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="ProductArticleNumber" Type="Int32" Nullable="false" />
+    <Property Name="IdProductName" Type="Int32" Nullable="false" />
+    <Property Name="IdUnit" Type="Int32" Nullable="false" />
+    <Property Name="ProductCost" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="MaxSales" Type="Int32" Nullable="false" />
+    <Property Name="ProductManufacturer" Type="Int32" Nullable="false" />
+    <Property Name="ProductSupplier" Type="Int32" Nullable="false" />
+    <Property Name="IdProductCategory" Type="Int32" Nullable="false" />
+    <Property Name="ProductDiscountAmount" Type="Int32" />
+    <Property Name="ProductQuantityInStock" Type="Int32" Nullable="false" />
+    <Property Name="ProductDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Photo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ProductPhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="NameManufacturer" Relationship="Self.FK_Product_NameManufacturer" FromRole="Product" ToRole="NameManufacturer" />
+    <NavigationProperty Name="NameProduct" Relationship="Self.FK_Product_NameProduct" FromRole="Product" ToRole="NameProduct" />
+    <NavigationProperty Name="NameSupplier" Relationship="Self.FK_Product_NameSupplier" FromRole="Product" ToRole="NameSupplier" />
+    <NavigationProperty Name="NameUnit" Relationship="Self.FK_Product_NameUnit" FromRole="Product" ToRole="NameUnit" />
+    <NavigationProperty Name="ProductCategory" Relationship="Self.FK_Product_ProductCategory" FromRole="Product" ToRole="ProductCategory" />
+  </EntityType>
+  <EntityType Name="ProductCategory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_Product_ProductCategory" FromRole="ProductCategory" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserSurname" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserPatronymic" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserLogin" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserPassword" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserRole" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
+  </EntityType>
+  <Association Name="FK_PickupPoint_NameCity">
+    <End Role="NameCity" Type="Self.NameCity" Multiplicity="1" />
+    <End Role="PickupPoint" Type="Self.PickupPoint" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NameCity">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PickupPoint">
+        <PropertyRef Name="IdCity" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_NameManufacturer">
+    <End Role="NameManufacturer" Type="Self.NameManufacturer" Multiplicity="1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NameManufacturer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="ProductManufacturer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_NameProduct">
+    <End Role="NameProduct" Type="Self.NameProduct" Multiplicity="1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NameProduct">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="IdProductName" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PickupPoint_NameStreet">
+    <End Role="NameStreet" Type="Self.NameStreet" Multiplicity="1" />
+    <End Role="PickupPoint" Type="Self.PickupPoint" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NameStreet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PickupPoint">
+        <PropertyRef Name="IdStreet" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_NameSupplier">
+    <End Role="NameSupplier" Type="Self.NameSupplier" Multiplicity="1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NameSupplier">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="ProductSupplier" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_NameUnit">
+    <End Role="NameUnit" Type="Self.NameUnit" Multiplicity="1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NameUnit">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="IdUnit" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_OrderProduct">
+    <End Role="OrderProduct" Type="Self.OrderProduct" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrderProduct">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="IdOrderProduct" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_OrderStatus">
+    <End Role="OrderStatus" Type="Self.OrderStatus" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrderStatus">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="IdStatus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_PickupPoint">
+    <End Role="PickupPoint" Type="Self.PickupPoint" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PickupPoint">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="OrderPickupPoint" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_ProductCategory">
+    <End Role="ProductCategory" Type="Self.ProductCategory" Multiplicity="1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductCategory">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="IdProductCategory" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Role">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="UserRole" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TradeEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="NameCity" EntityType="Self.NameCity" />
+    <EntitySet Name="NameManufacturer" EntityType="Self.NameManufacturer" />
+    <EntitySet Name="NameProduct" EntityType="Self.NameProduct" />
+    <EntitySet Name="NameStreet" EntityType="Self.NameStreet" />
+    <EntitySet Name="NameSupplier" EntityType="Self.NameSupplier" />
+    <EntitySet Name="NameUnit" EntityType="Self.NameUnit" />
+    <EntitySet Name="Order" EntityType="Self.Order" />
+    <EntitySet Name="OrderProduct" EntityType="Self.OrderProduct" />
+    <EntitySet Name="OrderStatus" EntityType="Self.OrderStatus" />
+    <EntitySet Name="PickupPoint" EntityType="Self.PickupPoint" />
+    <EntitySet Name="Product" EntityType="Self.Product" />
+    <EntitySet Name="ProductCategory" EntityType="Self.ProductCategory" />
+    <EntitySet Name="Role" EntityType="Self.Role" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="User" EntityType="Self.User" />
+    <AssociationSet Name="FK_PickupPoint_NameCity" Association="Self.FK_PickupPoint_NameCity">
+      <End Role="NameCity" EntitySet="NameCity" />
+      <End Role="PickupPoint" EntitySet="PickupPoint" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_NameManufacturer" Association="Self.FK_Product_NameManufacturer">
+      <End Role="NameManufacturer" EntitySet="NameManufacturer" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_NameProduct" Association="Self.FK_Product_NameProduct">
+      <End Role="NameProduct" EntitySet="NameProduct" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PickupPoint_NameStreet" Association="Self.FK_PickupPoint_NameStreet">
+      <End Role="NameStreet" EntitySet="NameStreet" />
+      <End Role="PickupPoint" EntitySet="PickupPoint" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_NameSupplier" Association="Self.FK_Product_NameSupplier">
+      <End Role="NameSupplier" EntitySet="NameSupplier" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_NameUnit" Association="Self.FK_Product_NameUnit">
+      <End Role="NameUnit" EntitySet="NameUnit" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_OrderProduct" Association="Self.FK_Order_OrderProduct">
+      <End Role="OrderProduct" EntitySet="OrderProduct" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_OrderStatus" Association="Self.FK_Order_OrderStatus">
+      <End Role="OrderStatus" EntitySet="OrderStatus" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_PickupPoint" Association="Self.FK_Order_PickupPoint">
+      <End Role="PickupPoint" EntitySet="PickupPoint" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_ProductCategory" Association="Self.FK_Product_ProductCategory">
+      <End Role="ProductCategory" EntitySet="ProductCategory" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

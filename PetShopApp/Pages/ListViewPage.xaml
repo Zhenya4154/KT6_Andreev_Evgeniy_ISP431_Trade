@@ -1,0 +1,65 @@
+﻿<Page x:Class="PetShopApp.Pages.ListViewPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PetShopApp.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ListViewPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="80"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <TextBox x:Name="SearchProductTextBox" 
+                     HorizontalContentAlignment="Center"
+                     VerticalContentAlignment="Center" 
+                     TextChanged="SearchProductTextBox_TextChanged"
+                     HorizontalAlignment="Left"
+                     VerticalAlignment="Center"
+                     Margin="10"></TextBox>
+            <ComboBox x:Name="ManufacturerComboBox" HorizontalContentAlignment="Center"
+                      VerticalContentAlignment="Center"
+                      SelectionChanged="ManufacturerComboBox_SelectionChanged"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Center"
+                      Margin="200,0,0,0"></ComboBox>
+            <RadioButton x:Name="SortUpRadioButton" Content="По возрастанию"
+                         Checked="SortUpRadioButton_Checked"
+                         Margin="400,0,0,0"
+                         HorizontalAlignment="Left"
+                         VerticalAlignment="Center"></RadioButton>
+            <RadioButton x:Name="SortDownRadioButton" Content="По убыванию"
+                         Checked="SortDownRadioButton_Checked"
+                         Margin="530,0,0,0"
+                         HorizontalAlignment="Left"
+                         VerticalAlignment="Center"></RadioButton>
+        </Grid>
+        <ListView Grid.Row="1" x:Name="ProductListView"
+                  Margin="10">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250"></ColumnDefinition>
+                            <ColumnDefinition Width="250"></ColumnDefinition>
+                            <ColumnDefinition Width="100"></ColumnDefinition>
+                            <ColumnDefinition ></ColumnDefinition>
+                            <ColumnDefinition ></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Text="{Binding NameProduct.Product, StringFormat={}Наименование товара: {0}}"></TextBlock>
+                            <TextBlock Text="{Binding ProductDescription, StringFormat={}Описание товара: {0}}" TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Text="{Binding NameManufacturer.Manufacturer, StringFormat={}Производитель: {0}}"></TextBlock>
+                            <TextBlock Text="{Binding ProductCost, StringFormat={}Цена: {0}}"></TextBlock>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>
