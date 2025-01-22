@@ -27,33 +27,73 @@ namespace PetShopApp.Pages
             Update();
         }
 
-        private void Init()
+        public void Init()
         {
             ProductListView.ItemsSource = Data.TradeEntities.GetContext().Product.ToList();
+            ManufacturerComboBox.ItemsSource = Data.TradeEntities.GetContext().NameManufacturer.ToList();
         }
 
-        private void Update()
+        public List<Data.Product> _product = Data.TradeEntities.GetContext().Product.ToList();
+        public void Update()
         {
+            try
+            {
+                _product = Data.TradeEntities.GetContext().Product.ToList();
+               
+                if(SortDownRadioButton.IsChecked == true)
+                {
+                    _product = _product.OrderBy(d => d.ProductCost).ToList();
+                }
+                if(SortUpRadioButton.IsChecked == true)
+                {
+                    _product = _product.OrderBy(d => d.ProductCost).ToList();
+                }
+            }
+            catch
+            {
 
+            }
+
+            
         }
         private void SearchProductTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            Update();
         }
 
         private void ManufacturerComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            Update();
         }
 
         private void SortUpRadioButton_Checked(object sender, RoutedEventArgs e)
         {
-
+            Update();
         }
 
         private void SortDownRadioButton_Checked(object sender, RoutedEventArgs e)
         {
+            Update();
+        }
 
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            Classes.Manager.MainFrame.Navigate(new Pages.AddEditPage());
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("В разработке!", "Упс!", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            Classes.Manager.MainFrame.Navigate(new Pages.AddEditPage(null));
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            Classes.Manager.MainFrame.Navigate(new Pages.LoginPage());
         }
     }
 }

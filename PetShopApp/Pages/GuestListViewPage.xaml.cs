@@ -23,6 +23,43 @@ namespace PetShopApp.Pages
         public GuestListViewPage()
         {
             InitializeComponent();
+            Init();
+            Update();
+        }
+        public void Init()
+        {
+            ProductListView.ItemsSource = Data.TradeEntities.GetContext().Product.ToList();
+            ManufacturerComboBox.ItemsSource = Data.TradeEntities.GetContext().NameManufacturer.ToList();
+        }
+
+        public void Update()
+        {
+
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            Classes.Manager.MainFrame.Navigate(new Pages.LoginPage());
+        }
+
+        private void SearchProductTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void ManufacturerComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void SortUpRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SortDownRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

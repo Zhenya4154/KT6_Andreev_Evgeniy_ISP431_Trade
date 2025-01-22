@@ -27,3 +27,5 @@ C:\Users\comcuru\Desktop\KT6_Andreev_Evgeniy_ISP431_Trade\PetShopApp\obj\Debug\P
 C:\Users\comcuru\Desktop\KT6_Andreev_Evgeniy_ISP431_Trade\PetShopApp\obj\Debug\Pages\ListViewPage.g.cs
 C:\Users\comcuru\Desktop\KT6_Andreev_Evgeniy_ISP431_Trade\PetShopApp\obj\Debug\Pages\GuestListViewPage.baml
 C:\Users\comcuru\Desktop\KT6_Andreev_Evgeniy_ISP431_Trade\PetShopApp\obj\Debug\Pages\ListViewPage.baml
+C:\Users\comcuru\Desktop\KT6_Andreev_Evgeniy_ISP431_Trade\PetShopApp\obj\Debug\Pages\AddEditPage.g.cs
+C:\Users\comcuru\Desktop\KT6_Andreev_Evgeniy_ISP431_Trade\PetShopApp\obj\Debug\Pages\AddEditPage.baml

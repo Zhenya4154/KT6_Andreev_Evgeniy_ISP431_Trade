@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\comcuru\Desktop\KT6_Andreev_Evgeniy_ISP431_Trade\PetShopApp\App.xaml
-4-2064579633
+5912715324
 2-747231112
-28-2142996905
+29-1683838704
 181713128706
-MainWindow.xaml;Pages\GuestListViewPage.xaml;Pages\ListViewPage.xaml;Pages\LoginPage.xaml;
+MainWindow.xaml;Pages\AddEditPage.xaml;Pages\GuestListViewPage.xaml;Pages\ListViewPage.xaml;Pages\LoginPage.xaml;
 
-True
+False
 

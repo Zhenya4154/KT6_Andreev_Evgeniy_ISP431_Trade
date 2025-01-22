@@ -27,6 +27,7 @@
                       SelectionChanged="ManufacturerComboBox_SelectionChanged"
                       HorizontalAlignment="Left"
                       VerticalAlignment="Center"
+                      DisplayMemberPath="Manufacturer"
                       Margin="200,0,0,0"></ComboBox>
             <RadioButton x:Name="SortUpRadioButton" Content="По возрастанию"
                          Checked="SortUpRadioButton_Checked"
@@ -45,11 +46,11 @@
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200"></ColumnDefinition>
                             <ColumnDefinition Width="250"></ColumnDefinition>
-                            <ColumnDefinition Width="250"></ColumnDefinition>
-                            <ColumnDefinition Width="100"></ColumnDefinition>
-                            <ColumnDefinition ></ColumnDefinition>
-                            <ColumnDefinition ></ColumnDefinition>
+                            <ColumnDefinition Width="150"></ColumnDefinition>
+                            <ColumnDefinition Width="130"></ColumnDefinition>
+                            <ColumnDefinition Width="130"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="1">
                             <TextBlock Text="{Binding NameProduct.Product, StringFormat={}Наименование товара: {0}}"></TextBlock>
@@ -57,9 +58,17 @@
                             <TextBlock Text="{Binding NameManufacturer.Manufacturer, StringFormat={}Производитель: {0}}"></TextBlock>
                             <TextBlock Text="{Binding ProductCost, StringFormat={}Цена: {0}}"></TextBlock>
                         </StackPanel>
+                        <TextBlock Grid.Column="2" Text="{Binding ProductQuantityInStock, StringFormat={}Наличие на складе: {0}}"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                        <Button x:Name="EditButton" Grid.Column="3" Click="EditButton_Click" Content="Редактировать"></Button>
+                        <Button x:Name="DeleteButton" Grid.Column="4" Click="DeleteButton_Click" Content="Удалить"></Button>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <Button x:Name="AddButton" Click="AddButton_Click" Content="Добавить" Grid.Row="2"
+                HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10"></Button>
+        <Button x:Name="BackButton" Click="BackButton_Click" Content="Назад" Grid.Row="2"
+                HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10"></Button>
     </Grid>
 </Page>
