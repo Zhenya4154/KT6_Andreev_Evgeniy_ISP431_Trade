@@ -54,8 +54,7 @@ namespace PetShopApp.Pages
                 _product = Data.TradeEntities.GetContext().Product.ToList();
 
                     _product = (from item in Data.TradeEntities.GetContext().Product.ToList()
-                                where item.NameProduct.Product.ToLower().Contains(SearchProductTextBox.Text.ToLower()) ||
-                                item.NameManufacturer.Manufacturer.ToLower().Contains(SearchProductTextBox.Text.ToLower())
+                                where item.NameProduct.Product.ToLower().Contains(SearchProductTextBox.Text.ToLower())
                                 select item).ToList();
 
                 if (SortDownRadioButton.IsChecked == true)
