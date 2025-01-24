@@ -15,12 +15,12 @@ namespace PetShopApp.Data
     public partial class Product
     {
         public int Id { get; set; }
-        public int ProductArticleNumber { get; set; }
+        public Nullable<int> ProductArticleNumber { get; set; }
         public int IdProductName { get; set; }
         public int IdUnit { get; set; }
         public decimal ProductCost { get; set; }
-        public int MaxSales { get; set; }
-        public int ProductManufacturer { get; set; }
+        public Nullable<int> MaxSales { get; set; }
+        public Nullable<int> ProductManufacturer { get; set; }
         public int ProductSupplier { get; set; }
         public int IdProductCategory { get; set; }
         public Nullable<int> ProductDiscountAmount { get; set; }

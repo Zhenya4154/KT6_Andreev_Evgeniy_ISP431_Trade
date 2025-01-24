@@ -12,7 +12,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Manufacturer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="Product" Relationship="Self.FK_Product_NameManufacturer" FromRole="NameManufacturer" ToRole="Product" />
   </EntityType>
@@ -20,7 +20,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Product" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="Product1" Relationship="Self.FK_Product_NameProduct" FromRole="NameProduct" ToRole="Product" />
   </EntityType>
@@ -36,7 +36,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Supplier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="Product" Relationship="Self.FK_Product_NameSupplier" FromRole="NameSupplier" ToRole="Product" />
   </EntityType>
@@ -44,7 +44,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Unit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="Product" Relationship="Self.FK_Product_NameUnit" FromRole="NameUnit" ToRole="Product" />
   </EntityType>
@@ -99,13 +99,13 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" />
-    <Property Name="ProductArticleNumber" Type="Int32" Nullable="false" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductArticleNumber" Type="Int32" />
     <Property Name="IdProductName" Type="Int32" Nullable="false" />
     <Property Name="IdUnit" Type="Int32" Nullable="false" />
     <Property Name="ProductCost" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-    <Property Name="MaxSales" Type="Int32" Nullable="false" />
-    <Property Name="ProductManufacturer" Type="Int32" Nullable="false" />
+    <Property Name="MaxSales" Type="Int32" />
+    <Property Name="ProductManufacturer" Type="Int32" />
     <Property Name="ProductSupplier" Type="Int32" Nullable="false" />
     <Property Name="IdProductCategory" Type="Int32" Nullable="false" />
     <Property Name="ProductDiscountAmount" Type="Int32" />
@@ -135,16 +135,6 @@
     <Property Name="RoleName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="User" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
   </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-  </EntityType>
   <EntityType Name="User">
     <Key>
       <PropertyRef Name="Id" />
@@ -171,7 +161,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Product_NameManufacturer">
-    <End Role="NameManufacturer" Type="Self.NameManufacturer" Multiplicity="1" />
+    <End Role="NameManufacturer" Type="Self.NameManufacturer" Multiplicity="0..1" />
     <End Role="Product" Type="Self.Product" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="NameManufacturer">
@@ -304,7 +294,6 @@
     <EntitySet Name="Product" EntityType="Self.Product" />
     <EntitySet Name="ProductCategory" EntityType="Self.ProductCategory" />
     <EntitySet Name="Role" EntityType="Self.Role" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
     <EntitySet Name="User" EntityType="Self.User" />
     <AssociationSet Name="FK_PickupPoint_NameCity" Association="Self.FK_PickupPoint_NameCity">
       <End Role="NameCity" EntitySet="NameCity" />

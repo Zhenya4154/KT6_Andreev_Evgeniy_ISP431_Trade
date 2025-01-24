@@ -11,14 +11,14 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Manufacturer" Type="nvarchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="NameProduct">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Product" Type="nvarchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="NameStreet">
@@ -32,14 +32,14 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Supplier" Type="nvarchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="NameUnit">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Unit" Type="nvarchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="Order">
@@ -85,13 +85,13 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
-    <Property Name="ProductArticleNumber" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductArticleNumber" Type="int" />
     <Property Name="IdProductName" Type="int" Nullable="false" />
     <Property Name="IdUnit" Type="int" Nullable="false" />
     <Property Name="ProductCost" Type="decimal" Precision="19" Scale="4" Nullable="false" />
-    <Property Name="MaxSales" Type="int" Nullable="false" />
-    <Property Name="ProductManufacturer" Type="int" Nullable="false" />
+    <Property Name="MaxSales" Type="int" />
+    <Property Name="ProductManufacturer" Type="int" />
     <Property Name="ProductSupplier" Type="int" Nullable="false" />
     <Property Name="IdProductCategory" Type="int" Nullable="false" />
     <Property Name="ProductDiscountAmount" Type="int" />
@@ -113,16 +113,6 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="RoleName" Type="nvarchar" MaxLength="100" Nullable="false" />
-  </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -197,7 +187,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Product_NameManufacturer">
-    <End Role="NameManufacturer" Type="Self.NameManufacturer" Multiplicity="1" />
+    <End Role="NameManufacturer" Type="Self.NameManufacturer" Multiplicity="0..1" />
     <End Role="Product" Type="Self.Product" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="NameManufacturer">
@@ -282,7 +272,6 @@
     <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProductCategory" EntityType="Self.ProductCategory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Order_OrderProduct" Association="Self.FK_Order_OrderProduct">
       <End Role="OrderProduct" EntitySet="OrderProduct" />

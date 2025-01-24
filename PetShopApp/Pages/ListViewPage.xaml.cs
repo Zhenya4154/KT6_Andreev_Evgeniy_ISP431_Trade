@@ -29,8 +29,22 @@ namespace PetShopApp.Pages
 
         public void Init()
         {
-            ProductListView.ItemsSource = Data.TradeEntities.GetContext().Product.ToList();
-            ManufacturerComboBox.ItemsSource = Data.TradeEntities.GetContext().NameManufacturer.ToList();
+            try
+            {
+
+
+                ProductListView.ItemsSource = Data.TradeEntities.GetContext().Product.ToList();
+                ManufacturerComboBox.ItemsSource = Data.TradeEntities.GetContext().NameManufacturer.ToList();
+
+                var nameManufacturer = Data.TradeEntities.GetContext().NameManufacturer.ToList();
+                nameManufacturer.Insert(0, new Data.NameManufacturer { Manufacturer = "Все производители" });
+                ManufacturerComboBox.ItemsSource = nameManufacturer;
+                ManufacturerComboBox.SelectedIndex = 0;
+            }
+            catch
+            {
+
+            }
         }
 
         public List<Data.Product> _product = Data.TradeEntities.GetContext().Product.ToList();
@@ -39,15 +53,27 @@ namespace PetShopApp.Pages
             try
             {
                 _product = Data.TradeEntities.GetContext().Product.ToList();
-               
+
+                    _product = (from item in Data.TradeEntities.GetContext().Product.ToList()
+                                where item.NameProduct.Product.ToLower().Contains(SearchProductTextBox.Text.ToLower()) ||
+                                item.NameManufacturer.Manufacturer.ToLower().Contains(SearchProductTextBox.Text.ToLower())
+                                select item).ToList();
+
                 if(SortDownRadioButton.IsChecked == true)
                 {
-                    _product = _product.OrderBy(d => d.ProductCost).ToList();
+                    _product = _product.OrderByDescending(d => d.ProductCost).ToList();
                 }
                 if(SortUpRadioButton.IsChecked == true)
                 {
                     _product = _product.OrderBy(d => d.ProductCost).ToList();
                 }
+
+                var selected = ManufacturerComboBox.SelectedItem as Data.NameManufacturer;
+                if(selected != null && selected.Manufacturer != "Все производители")
+                {
+                    _product = _product.Where(d => d.Id == selected.Id).ToList();
+                }
+                ProductListView.ItemsSource = _product;
             }
             catch
             {
@@ -78,7 +104,7 @@ namespace PetShopApp.Pages
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            Classes.Manager.MainFrame.Navigate(new Pages.AddEditPage());
+            Classes.Manager.MainFrame.Navigate(new Pages.AddEditPage((sender as Button).DataContext as Data.Product));
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)

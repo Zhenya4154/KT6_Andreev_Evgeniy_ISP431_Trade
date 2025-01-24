@@ -26,7 +26,7 @@ namespace PetShopApp.Pages
         public AddEditPage(Data.Product _product)
         {
             InitializeComponent();
-            Init();
+           
             if(_product != null)
             {
                 CurrentProduct = _product;
@@ -37,6 +37,7 @@ namespace PetShopApp.Pages
                 FlagAddOrEdit = "add";
             }
             DataContext = CurrentProduct;
+            Init();
         }
 
         public void Init()
@@ -99,8 +100,81 @@ namespace PetShopApp.Pages
                 if(errors.Length > 0)
                 {
                     MessageBox.Show(errors.ToString(), "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
                 }
 
+                var searchName = (from item in Data.TradeEntities.GetContext().NameProduct
+                                  where item.Product == NameProductTextBox.Text
+                                  select item).FirstOrDefault();
+                if(searchName != null)
+                {
+                    CurrentProduct.IdProductName = searchName.Id;
+                }
+                else
+                {
+                    Data.NameProduct productName = new Data.NameProduct()
+                    {
+                        Product = NameProductTextBox.Text
+                    };
+                    Data.TradeEntities.GetContext().NameProduct.Add(productName);
+                    Data.TradeEntities.GetContext().SaveChanges();
+                    CurrentProduct.IdProductName = productName.Id;
+
+                }
+
+                CurrentProduct.ProductDescription = DescriptionTextBox.Text;
+                var searchUnit = (from item in Data.TradeEntities.GetContext().NameUnit
+                                  where item.Unit == UnitTextBox.Text
+                                  select item).FirstOrDefault();
+                if (searchUnit != null)
+                {
+                    CurrentProduct.IdUnit = searchUnit.Id;
+                }
+                else
+                {
+                    Data.NameUnit unitName = new Data.NameUnit()
+                    {
+                        Unit = UnitTextBox.Text
+                    };
+                    Data.TradeEntities.GetContext().NameUnit.Add(unitName);
+                    Data.TradeEntities.GetContext().SaveChanges();
+                    CurrentProduct.IdUnit = unitName.Id;
+
+                }
+                var searchSupplier = (from item in Data.TradeEntities.GetContext().NameSupplier
+                                  where item.Supplier == SupplierTextBox.Text
+                                  select item).FirstOrDefault();
+                if (searchSupplier != null)
+                {
+                    CurrentProduct.ProductSupplier = searchSupplier.Id;
+                }
+                else
+                {
+                    Data.NameSupplier productSupplier = new Data.NameSupplier()
+                    {
+                        Supplier = SupplierTextBox.Text
+                    };
+                    Data.TradeEntities.GetContext().NameSupplier.Add(productSupplier);
+                    Data.TradeEntities.GetContext().SaveChanges();
+                    CurrentProduct.ProductSupplier = productSupplier.Id;
+
+                }
+
+                var selectCategory = ProductCategoryComboBox.SelectedItem as Data.ProductCategory;
+                CurrentProduct.IdProductCategory = selectCategory.Id;
+                CurrentProduct.ProductQuantityInStock = Convert.ToInt32(ProductQuantityInStockTextBox.Text);
+                CurrentProduct.ProductCost = Convert.ToDecimal(ProductCostTextBox.Text);
+
+                if (FlagAddOrEdit == "add")
+                {
+                    Data.TradeEntities.GetContext().Product.Add(CurrentProduct);
+                    Data.TradeEntities.GetContext().SaveChanges();
+                    MessageBox.Show("Успешно добавлено!", "Успех!", MessageBoxButton.OK, MessageBoxImage.Information);
+                } else if(FlagAddOrEdit == "edit")
+                {
+                    Data.TradeEntities.GetContext().SaveChanges();
+                    MessageBox.Show("Успешно сохранено!", "Успех!", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
             } catch(Exception ex)
             {
                 MessageBox.Show(ex.ToString(), "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
